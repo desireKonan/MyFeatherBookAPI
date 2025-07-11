@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 
 class AttachmentType(Enum):
+    """ Ici les types de documents utilises pour notre projet """
     AUDIO = "Audio"
     DOCUMENT = "Document"
 
