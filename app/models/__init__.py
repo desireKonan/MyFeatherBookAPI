@@ -1,3 +1,3 @@
-from model import Note, Attachment, AttachmentType
+from model import Note, Attachment, AttachmentType, Synthesis
 
-__all__ = ['Note', 'Attachment', 'AttachmentType']
+__all__ = ['Note', 'Attachment', 'AttachmentType', 'Synthesis']
