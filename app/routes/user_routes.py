@@ -128,7 +128,7 @@ def login():
 @log_function_call('get_current_user')
 def get_current_user():
     """Récupérer les informations de l'utilisateur connecté"""
-    from app.auth.jwt_manager import token_required
+    from app.utils.jwt_manager import token_required
     
     @token_required
     def _get_current_user():
@@ -140,7 +140,7 @@ def get_current_user():
 @log_function_call('refresh_token')
 def refresh_token():
     """Rafraîchir le token"""
-    from app.auth.jwt_manager import token_required
+    from app.utils.jwt_manager import token_required
     
     @token_required
     def _refresh_token():
