@@ -1,6 +1,6 @@
 from enum import Enum
 from .base_model import BaseModel
-from datetime import datetime
+from app.utils.jwt_manager import jwt_manager
 
 class AttachmentType(Enum):
     """Types de documents utilises pour notre projet"""
@@ -15,7 +15,6 @@ class Attachment(BaseModel):
         super().__init__(**kwargs)
         self.url = kwargs.get('url', '')
         self.type = kwargs.get('type')
-        self.note_id = kwargs.get('note_id')
         
         # Convert string to enum if needed
         if isinstance(self.type, str):
@@ -42,7 +41,6 @@ class Note(BaseModel):
     def add_attachment(self, attachment):
         if not isinstance(attachment, Attachment):
             attachment = Attachment(**attachment)
-        attachment.note_id = self.id
         self.attachments.append(attachment)
     
     def to_dict(self):
@@ -61,3 +59,37 @@ class Synthesis(BaseModel):
     
     def to_dict(self):
         return super().to_dict()
+
+
+
+class User(BaseModel):
+    """Modèle utilisateur"""
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.username = kwargs.get('username', '')
+        self.email = kwargs.get('email', '')
+        self.password_hash = kwargs.get('password_hash', '')
+        self.role = kwargs.get('role', 'user')  # user, admin
+        self.is_active = kwargs.get('is_active', True)
+        self.last_login = kwargs.get('last_login')
+    
+    def set_password(self, password):
+        """Définir le mot de passe"""
+        self.password_hash = jwt_manager.hash_password(password)
+    
+    def check_password(self, password):
+        """Vérifier le mot de passe"""
+        return jwt_manager.check_password(password, self.password_hash)
+    
+    def to_dict(self):
+        data = super().to_dict()
+        # Ne pas exposer le hash du mot de passe
+        data.pop('password_hash', None)
+        return data
+    
+    def to_dict_with_token(self):
+        """Retourner les données utilisateur avec token"""
+        data = self.to_dict()
+        data['token'] = jwt_manager.generate_token(self.id, self.username, self.role)
+        return data

@@ -4,7 +4,7 @@ Configure et initialise tous les contrôleurs
 """
 
 from flask_restx import Api
-from app.controllers import notes_ns, syntheses_ns, health_ns
+from app.routes import notes_ns, syntheses_ns, health_ns
 
 # Initialize Flask-RESTX API
 api = Api(

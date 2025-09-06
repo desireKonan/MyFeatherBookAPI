@@ -1,6 +1,6 @@
 from typing import List, Optional
 from app.mongodb_connector import mongodb_connector
-from app.models.model import Attachment, AttachmentType
+from app.models.model import Attachment
 
 
 class AttachmentRepository:

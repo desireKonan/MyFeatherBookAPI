@@ -1,13 +1,9 @@
 """
 Feather Book API Application
 """
-
 from flask import Flask
 from flask_cors import CORS
-from app.firebase_connector import initialize_firebase
 from app.routes import health_bp, notes_bp, syntheses_bp
-#from app.logger_config import setup_default_logging
-#from app.middleware import LoggingMiddleware
 
 def create_app():
     """Application factory pattern"""
@@ -18,9 +14,6 @@ def create_app():
     
     # Enable CORS
     CORS(app)
-    
-    # Initialize Firebase
-    initialize_firebase()
     
     # Register blueprints
     app.register_blueprint(health_bp)
