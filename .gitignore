@@ -1,0 +1,15 @@
+.venv
+app/__pycache__
+app/config/__pycache__
+app/controllers/__pycache__
+app/ml/__pycache__
+app/models/__pycache__
+app/services/__pycache__
+__pycache__
+logs
+
+
+serviceAccountKey.json
+myfeatherbook-firebase-adminsdk-fbsvc-819a3ea30c.json
+
+.env
